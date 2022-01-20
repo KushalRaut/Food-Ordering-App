@@ -1,7 +1,18 @@
 import Image from 'next/image'
 import styles from '../styles/Navbar.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { resetAuth } from '../redux/authSlice'
+import Link from 'next/link'
 
 const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity)
+  const { isauthticated = false } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(resetAuth())
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.item}>
@@ -15,21 +26,38 @@ const Navbar = () => {
       </div>
       <div className={styles.item}>
         <ul className={styles.list}>
-          <li className={styles.listItem}>Homepage</li>
+          <Link href="/">
+            <li className={styles.listItem}>Homepage</li>
+          </Link>
           <li className={styles.listItem}>Products</li>
           <li className={styles.listItem}>Menu</li>
-          <h1 className={styles.name}>Kushal Pizzeria</h1>
+          <Link href="/">
+            <h1 className={styles.name}>Kushal Pizzeria</h1>
+          </Link>
           <li className={styles.listItem}>Events</li>
-          <li className={styles.listItem}>Blog</li>
-          <li className={styles.listItem}>Contact</li>
+          <li className={styles.listItem}>Contact us</li>
         </ul>
       </div>
-      <div className={styles.item}>
-        <div className={styles.cart}>
-          <Image src="/img/cart.png" alt="" width="30px" height="30px" />
-          <div className={styles.counter}>2</div>
+      {isauthticated ? (
+        <Link href="/">
+          <button className={styles.loginButton} onClick={logoutHandler}>
+            LOGOUT
+          </button>
+        </Link>
+      ) : (
+        <Link href="/admin/login">
+          <button className={styles.loginButton}>LOGIN</button>
+        </Link>
+      )}
+      <Link href="/cart">
+        <div className={styles.item}>
+          <div className={styles.cart}>
+            <Image src="/img/cart.png" alt="" width="30px" height="30px" />
+
+            <div className={styles.counter}>{`${quantity}`}</div>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   )
 }

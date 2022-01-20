@@ -1,5 +1,5 @@
-import Image from "next/image";
-import styles from "../styles/Footer.module.css";
+import Image from 'next/image'
+import styles from '../styles/Footer.module.css'
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
       <div className={styles.item}>
         <div className={styles.card}>
           <h2 className={styles.motto}>
-            OH YES, WE DID.THE LAMA PIZZA, WELL BAKED SLICE OF PIZZA.
+            OH YES, WE DID.KUSHAL PIZZERIA, WELL BAKED SLICE OF PIZZA.
           </h2>
         </div>
         <div className={styles.card}>
@@ -49,7 +49,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
